@@ -1,3 +1,4 @@
+
 // Configuration
 const CONFIG = {
   timeZone: "Europe/Zagreb",
@@ -323,129 +324,6 @@ class TimeDisplay {
   }
 }
 
-// Reality Section Animations
-function initRealityAnimations() {
-  // Register ScrollTrigger plugin
-  gsap.registerPlugin(ScrollTrigger);
-  
-  // Animate reality elements on scroll
-  gsap.utils.toArray('.reality-title').forEach((title, index) => {
-    gsap.fromTo(title, 
-      { opacity: 0, y: 50 },
-      {
-        opacity: 1,
-        y: 0,
-        duration: 1,
-        ease: "power2.out",
-        scrollTrigger: {
-          trigger: title,
-          start: "top 80%",
-          end: "bottom 20%",
-          toggleActions: "play none none reverse"
-        }
-      }
-    );
-  });
-
-  gsap.utils.toArray('.reality-subtitle').forEach((subtitle, index) => {
-    gsap.fromTo(subtitle, 
-      { opacity: 0, y: 50 },
-      {
-        opacity: 1,
-        y: 0,
-        duration: 1,
-        ease: "power2.out",
-        scrollTrigger: {
-          trigger: subtitle,
-          start: "top 80%",
-          end: "bottom 20%",
-          toggleActions: "play none none reverse"
-        }
-      }
-    );
-  });
-
-  gsap.utils.toArray('.reality-text').forEach((text, index) => {
-    gsap.fromTo(text, 
-      { opacity: 0, y: 30 },
-      {
-        opacity: 1,
-        y: 0,
-        duration: 0.8,
-        ease: "power2.out",
-        delay: 0.2,
-        scrollTrigger: {
-          trigger: text,
-          start: "top 85%",
-          end: "bottom 15%",
-          toggleActions: "play none none reverse"
-        }
-      }
-    );
-  });
-
-  gsap.utils.toArray('.reality-img').forEach((img, index) => {
-    gsap.fromTo(img, 
-      { opacity: 0, scale: 0.8 },
-      {
-        opacity: 1,
-        scale: 1,
-        duration: 1.2,
-        ease: "power2.out",
-        scrollTrigger: {
-          trigger: img,
-          start: "top 85%",
-          end: "bottom 15%",
-          toggleActions: "play none none reverse"
-        }
-      }
-    );
-  });
-}
-
-// Initial load animation for reality section
-function animateRealityElementsOnLoad() {
-  const tl = gsap.timeline();
-  
-  // Animate first visible elements immediately
-  const firstSection = document.querySelector('.reality-section');
-  if (firstSection) {
-    const firstTitle = firstSection.querySelector('.reality-title');
-    const firstImg = firstSection.querySelector('.reality-img');
-    const firstText = firstSection.querySelector('.reality-text');
-    
-    if (firstTitle) {
-      gsap.set(firstTitle, { opacity: 0, y: 50 });
-      tl.to(firstTitle, {
-        opacity: 1,
-        y: 0,
-        duration: 1,
-        ease: "power2.out"
-      });
-    }
-    
-    if (firstImg) {
-      gsap.set(firstImg, { opacity: 0, scale: 0.8 });
-      tl.to(firstImg, {
-        opacity: 1,
-        scale: 1,
-        duration: 0.8,
-        ease: "power2.out"
-      }, "-=0.5");
-    }
-    
-    if (firstText) {
-      gsap.set(firstText, { opacity: 0, y: 30 });
-      tl.to(firstText, {
-        opacity: 1,
-        y: 0,
-        duration: 0.8,
-        ease: "power2.out"
-      }, "-=0.6");
-    }
-  }
-}
-
 // Initialize everything when DOM is loaded
 document.addEventListener("DOMContentLoaded", () => {
   const animationManager = new AnimationManager();
@@ -453,10 +331,5 @@ document.addEventListener("DOMContentLoaded", () => {
 
   const timeDisplay = new TimeDisplay("current-time");
   timeDisplay.start();
-  
-  // Initialize reality animations
-  initRealityAnimations();
-  
-  // Animate first section on load
-  setTimeout(animateRealityElementsOnLoad, 500);
 });
+          
