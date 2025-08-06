@@ -147,7 +147,6 @@
                 await vfx.add(e, { 
                     shader: shader2,
                     uniforms: { id: i++ },
-                    // overlay: true,
                 });
             }  
         });
