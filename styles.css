@@ -527,3 +527,76 @@
             grid-column-gap: 1rem;
           }
         }
+
+        /* Agregar estas reglas al final de tu styles.css existente */
+
+/* Mejoras para touch en móviles */
+@media (max-width: 768px) {
+  .project-item {
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    touch-action: manipulation;
+    /* Agregar un indicador visual para touch */
+    position: relative;
+  }
+
+  .project-item::after {
+    content: "👆 Mantén presionado para ver imagen";
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 10px;
+    opacity: 0.5;
+    pointer-events: none;
+  }
+
+  /* Ocultar el indicador en elementos que solo muestran artista */
+  .project-item:nth-child(n)::after {
+    display: none;
+  }
+
+  /* Mostrar solo en los primeros elementos visibles */
+  .project-item:nth-child(-n+3)::after {
+    display: block;
+  }
+
+  /* Estado activo durante touch hold */
+  .project-item.touch-active {
+    background: rgba(255, 223, 0, 0.1);
+    transform: scale(1.02);
+    transition: all 0.2s ease;
+  }
+
+  /* Mejorar la imagen de fondo en móviles */
+  .background-image {
+    width: clamp(280px, 80vw, 400px);
+    height: clamp(210px, 60vw, 300px);
+    z-index: 50; /* Asegurar que esté visible */
+  }
+
+  /* Evitar scroll durante touch hold */
+  body.no-scroll {
+    overflow: hidden;
+    position: fixed;
+    width: 100%;
+  }
+}
+
+/* Para dispositivos muy pequeños */
+@media (max-width: 480px) {
+  .project-item::after {
+    content: "👆";
+    font-size: 12px;
+    right: 5px;
+  }
+
+  .background-image {
+    width: clamp(250px, 90vw, 350px);
+    height: clamp(188px, 67.5vw, 263px);
+  }
+}

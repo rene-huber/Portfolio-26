@@ -1,4 +1,4 @@
- // Configuration
+// Configuration
         const CONFIG = {
           timeZone: "Europe/Zagreb",
           timeUpdateInterval: 1000
@@ -22,6 +22,12 @@
             });
         });
 
+        // Utility function to detect mobile devices
+        function isMobile() {
+          return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) || 
+                 window.innerWidth <= 768;
+        }
+
         // Animation Manager Class
         class AnimationManager {
           constructor() {
@@ -34,6 +40,14 @@
             this.idleAnimation = null;
             this.isIdle = true;
             this.idleTimer = null;
+            
+            // Mobile touch functionality
+            this.isMobileDevice = isMobile();
+            this.touchStartTime = 0;
+            this.touchHoldTimer = null;
+            this.isHolding = false;
+            this.activeTouch = null;
+            this.touchHoldDelay = 200; // ms to start showing image
 
             // Store original texts for each project item
             this.projectItems.forEach((item) => {
@@ -49,16 +63,18 @@
               this.addEventListeners(item, index);
             });
 
-            // Add container mouse leave event
-            const container = document.querySelector(".portfolio-container");
-            container.addEventListener("mouseleave", () => {
-              if (this.debounceTimeout) {
-                clearTimeout(this.debounceTimeout);
-              }
-              this.clearActiveStates();
-              this.hideBackgroundImage();
-              this.startIdleTimer();
-            });
+            // Add container mouse leave event (only for desktop)
+            if (!this.isMobileDevice) {
+              const container = document.querySelector(".portfolio-container");
+              container.addEventListener("mouseleave", () => {
+                if (this.debounceTimeout) {
+                  clearTimeout(this.debounceTimeout);
+                }
+                this.clearActiveStates();
+                this.hideBackgroundImage();
+                this.startIdleTimer();
+              });
+            }
 
             this.startIdleTimer();
           }
@@ -79,6 +95,108 @@
             const imageUrl = item.dataset.image;
             const originalTexts = this.originalTexts.get(item);
 
+            if (this.isMobileDevice) {
+              // Mobile touch events
+              this.addMobileTouchEvents(item, index, textElements, originalTexts, imageUrl);
+            } else {
+              // Desktop mouse events
+              this.addDesktopMouseEvents(item, index, textElements, originalTexts, imageUrl);
+            }
+          }
+
+          addMobileTouchEvents(item, index, textElements, originalTexts, imageUrl) {
+            // Touch start - begin hold detection
+            item.addEventListener('touchstart', (e) => {
+              e.preventDefault(); // Prevent scrolling
+              
+              this.touchStartTime = Date.now();
+              this.activeTouch = {
+                item,
+                index,
+                textElements,
+                originalTexts,
+                imageUrl
+              };
+
+              // Clear any existing timer
+              if (this.touchHoldTimer) {
+                clearTimeout(this.touchHoldTimer);
+              }
+
+              // Start hold timer
+              this.touchHoldTimer = setTimeout(() => {
+                if (this.activeTouch && this.activeTouch.item === item) {
+                  this.isHolding = true;
+                  this.activateItem(index, textElements, originalTexts, imageUrl);
+                }
+              }, this.touchHoldDelay);
+
+            }, { passive: false });
+
+            // Touch end - stop showing image
+            item.addEventListener('touchend', (e) => {
+              e.preventDefault();
+              
+              // Clear hold timer
+              if (this.touchHoldTimer) {
+                clearTimeout(this.touchHoldTimer);
+                this.touchHoldTimer = null;
+              }
+
+              // If we were holding, deactivate
+              if (this.isHolding && this.activeTouch && this.activeTouch.item === item) {
+                this.deactivateItem(textElements, originalTexts);
+                this.hideBackgroundImage();
+                this.isHolding = false;
+              }
+
+              this.activeTouch = null;
+            }, { passive: false });
+
+            // Touch cancel - same as touch end
+            item.addEventListener('touchcancel', (e) => {
+              e.preventDefault();
+              
+              if (this.touchHoldTimer) {
+                clearTimeout(this.touchHoldTimer);
+                this.touchHoldTimer = null;
+              }
+
+              if (this.isHolding && this.activeTouch && this.activeTouch.item === item) {
+                this.deactivateItem(textElements, originalTexts);
+                this.hideBackgroundImage();
+                this.isHolding = false;
+              }
+
+              this.activeTouch = null;
+            }, { passive: false });
+
+            // Touch move - cancel if moved too much
+            item.addEventListener('touchmove', (e) => {
+              const touch = e.touches[0];
+              const rect = item.getBoundingClientRect();
+              
+              // If touch moves outside the item, cancel
+              if (touch.clientX < rect.left || touch.clientX > rect.right ||
+                  touch.clientY < rect.top || touch.clientY > rect.bottom) {
+                
+                if (this.touchHoldTimer) {
+                  clearTimeout(this.touchHoldTimer);
+                  this.touchHoldTimer = null;
+                }
+
+                if (this.isHolding && this.activeTouch && this.activeTouch.item === item) {
+                  this.deactivateItem(textElements, originalTexts);
+                  this.hideBackgroundImage();
+                  this.isHolding = false;
+                }
+
+                this.activeTouch = null;
+              }
+            }, { passive: false });
+          }
+
+          addDesktopMouseEvents(item, index, textElements, originalTexts, imageUrl) {
             const handleMouseEnter = () => {
               this.stopIdleAnimation();
               this.stopIdleTimer();
@@ -90,42 +208,58 @@
 
               if (this.currentActiveIndex === index) return;
 
-              this.updateActiveStates(index);
-
-              // Animate text with scramble effect
-              textElements.forEach((element, i) => {
-                if (typeof gsap !== 'undefined' && gsap.to) {
-                  gsap.killTweensOf(element);
-                  gsap.to(element, {
-                    duration: 0.8,
-                    scrambleText: {
-                      text: originalTexts[i],
-                      chars: "qwerty1337h@ck3r",
-                      revealDelay: 0.3,
-                      speed: 0.4
-                    }
-                  });
-                }
-              });
-
-              if (imageUrl) {
-                this.showBackgroundImage(imageUrl);
-              }
+              this.activateItem(index, textElements, originalTexts, imageUrl);
             };
 
             const handleMouseLeave = () => {
               this.debounceTimeout = setTimeout(() => {
-                textElements.forEach((element, i) => {
-                  if (typeof gsap !== 'undefined') {
-                    gsap.killTweensOf(element);
-                  }
-                  element.textContent = originalTexts[i];
-                });
+                this.deactivateItem(textElements, originalTexts);
               }, 50);
             };
 
             item.addEventListener("mouseenter", handleMouseEnter);
             item.addEventListener("mouseleave", handleMouseLeave);
+          }
+
+          activateItem(index, textElements, originalTexts, imageUrl) {
+            this.stopIdleAnimation();
+            this.stopIdleTimer();
+            this.isIdle = false;
+
+            if (this.debounceTimeout) {
+              clearTimeout(this.debounceTimeout);
+            }
+
+            this.updateActiveStates(index);
+
+            // Animate text with scramble effect
+            textElements.forEach((element, i) => {
+              if (typeof gsap !== 'undefined' && gsap.to) {
+                gsap.killTweensOf(element);
+                gsap.to(element, {
+                  duration: 0.8,
+                  scrambleText: {
+                    text: originalTexts[i],
+                    chars: "qwerty1337h@ck3r",
+                    revealDelay: 0.3,
+                    speed: 0.4
+                  }
+                });
+              }
+            });
+
+            if (imageUrl) {
+              this.showBackgroundImage(imageUrl);
+            }
+          }
+
+          deactivateItem(textElements, originalTexts) {
+            textElements.forEach((element, i) => {
+              if (typeof gsap !== 'undefined') {
+                gsap.killTweensOf(element);
+              }
+              element.textContent = originalTexts[i];
+            });
           }
 
           updateActiveStates(activeIndex) {
@@ -158,7 +292,9 @@
               });
             });
 
-            this.startIdleTimer();
+            if (!this.isMobileDevice) {
+              this.startIdleTimer();
+            }
           }
 
           showBackgroundImage(imageUrl) {
@@ -187,6 +323,8 @@
           }
 
           startIdleTimer() {
+            if (this.isMobileDevice) return; // No idle animation on mobile
+            
             this.stopIdleTimer();
             this.idleTimer = setTimeout(() => {
               if (this.currentActiveIndex === -1) {
@@ -204,7 +342,7 @@
           }
 
           startIdleAnimation() {
-            if (this.idleAnimation || typeof gsap === 'undefined') return;
+            if (this.idleAnimation || typeof gsap === 'undefined' || this.isMobileDevice) return;
 
             this.idleAnimation = gsap.timeline({
               repeat: -1,
