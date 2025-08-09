@@ -1,6 +1,6 @@
 // Configuration
         const CONFIG = {
-          timeZone: "Europe/Zagreb",
+          timeZone: "Europe/Berlin",
           timeUpdateInterval: 1000
         };
 
@@ -495,3 +495,138 @@
           const timeDisplay = new TimeDisplay("current-time");
           timeDisplay.start();
         });
+
+        // Agregar esta clase al final de script_2.js
+
+// Welcome Carousel Class
+class WelcomeCarousel {
+    constructor() {
+        this.carousel = document.getElementById('welcomeCarousel');
+        this.container = document.querySelector('.welcome-carousel-container');
+        this.words = document.querySelectorAll('.welcome-word');
+        this.isVisible = false;
+        this.observer = null;
+        
+        this.init();
+    }
+
+    init() {
+        // Configurar Intersection Observer para optimizar performance
+        this.setupIntersectionObserver();
+        
+        // Añadir efectos hover adicionales
+        this.setupHoverEffects();
+        
+        // Configurar pausa en focus para accesibilidad
+        this.setupAccessibilityFeatures();
+    }
+
+    setupIntersectionObserver() {
+        const options = {
+            root: null,
+            rootMargin: '50px',
+            threshold: 0.1
+        };
+
+        this.observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    this.startAnimation();
+                    this.isVisible = true;
+                } else {
+                    this.pauseAnimation();
+                    this.isVisible = false;
+                }
+            });
+        }, options);
+
+        this.observer.observe(this.container);
+    }
+
+    setupHoverEffects() {
+        // Solo agregar efecto glow, sin pausar animación
+        this.container.addEventListener('mouseenter', () => {
+            this.addGlowEffect();
+        });
+
+        this.container.addEventListener('mouseleave', () => {
+            this.removeGlowEffect();
+        });
+    }
+
+    setupAccessibilityFeatures() {
+        // Respetar preferencias de movimiento reducido
+        if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+            this.pauseAnimation();
+            this.container.style.setProperty('--animation-duration', '60s');
+        }
+        // Removidos los event listeners de teclado que pausaban la animación
+    }
+
+    startAnimation() {
+        this.carousel.style.animationPlayState = 'running';
+    }
+
+    pauseAnimation() {
+        this.carousel.style.animationPlayState = 'paused';
+    }
+
+    resumeAnimation() {
+        if (this.isVisible) {
+            this.carousel.style.animationPlayState = 'running';
+        }
+    }
+
+    addGlowEffect() {
+        this.words.forEach(word => {
+            word.style.textShadow = '0 0 20px rgba(255, 223, 0, 0.5), 0 0 40px rgba(255, 223, 0, 0.3)';
+            word.style.transition = 'text-shadow 0.3s ease';
+        });
+    }
+
+    removeGlowEffect() {
+        this.words.forEach(word => {
+            word.style.textShadow = 'none';
+        });
+    }
+
+    // Método público para cambiar la velocidad de la animación
+    setSpeed(duration) {
+        this.carousel.style.animationDuration = `${duration}s`;
+    }
+
+    // Método público para destruir el observer
+    destroy() {
+        if (this.observer) {
+            this.observer.disconnect();
+        }
+    }
+}
+
+// Modificar la inicialización en el DOMContentLoaded existente
+document.addEventListener("DOMContentLoaded", () => {
+    const animationManager = new AnimationManager();
+    animationManager.initializeAnimations();
+
+    const timeDisplay = new TimeDisplay("current-time");
+    timeDisplay.start();
+    
+    // Inicializar el carrusel Welcome
+    const welcomeCarousel = new WelcomeCarousel();
+    
+    // Opcional: Cambiar velocidad basado en el tamaño de pantalla
+    const handleResize = () => {
+        if (window.innerWidth <= 480) {
+            welcomeCarousel.setSpeed(25); // Más lento en móviles pequeños
+        } else if (window.innerWidth <= 768) {
+            welcomeCarousel.setSpeed(20); // Moderado en tablets
+        } else {
+            welcomeCarousel.setSpeed(15); // Velocidad normal en desktop
+        }
+    };
+    
+    // Ejecutar al cargar y redimensionar
+    handleResize();
+    window.addEventListener('resize', handleResize);
+});
+
