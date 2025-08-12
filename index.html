@@ -11,37 +11,35 @@
  
 </head>
 <body>
-    
-  <header class="header">
-       <aside class="corner-elements">
+   <!-- Corner Elements - Ahora en la parte superior -->
+    <div class="corner-elements">
         <div class="corner-item top-left">
-         52.5247859°, 13.4159432°
-     
+            52.5414338° N, 13.4995762° E
         </div>
-      <nav class="corner-item top-right">
-    <a href="https://open.spotify.com/user/226ilulo57zutgtiwjsjqnqsy?si=0004e7bc669a406e">Spotify</a> |
-    <a href="mailto:hi@filip.fyi">Email</a> |
-    <a href="https://x.com/filipz" target="_blank" rel="noopener">X</a>
-</nav>
+        <div class="corner-item top-center"><span style="font-size:11px; color: #909279; margin: 0;
+        padding: 0">BER</span>
+            <time class="current-time" id="current-time"></time>
+        </div>
+        <nav class="corner-item top-right">
+            <a href="https://open.spotify.com/user/226ilulo57zutgtiwjsjqnqsy?si=0004e7bc669a406e">Spotify</a> |
+            <a href="mailto:hi@filip.fyi">Email</a> |
+            <a href="https://x.com/filipz" target="_blank" rel="noopener">X</a>
+        </nav>
+    </div>
 
-<div class="corner-item center-coordinates">
-        <time class="corner-item bottom-right" id="current-time"></time>
-   
-</div>
-
-       
-    </aside>
-    <div class="logo">
-<img alt="HUBER Logo" class="logo-image" src="https://rene-huber.eu/portfolio/LOGO-HUBER.webp"/>
-</div>
+    <!-- Header principal con logo y menú -->
+    <header class="header">
+        <div class="logo">
+            <img alt="HUBER Logo" class="logo-image" src="https://rene-huber.eu/portfolio/LOGO-HUBER.webp"/>
+        </div>
         
         <!-- Desktop Navigation -->
         <nav class="nav-desktop">
-            <a href="#item1">ITEM 1</a>
-            <a href="#item2">ITEM 2</a>
-            <a href="#item3">ITEM 3</a>
-            <a href="#item4">ITEM 4</a>
-            <a href="#item5">ITEM 5</a>
+            <a href="#item1">Home</a>
+            <a href="#item2">About</a>
+            <a href="#item3">Portfolio</a>
+            <a href="#item3">Kontak</a>
+          
         </nav>
 
         <!-- Mobile Menu Toggle -->
@@ -61,6 +59,8 @@
         <a href="#item5">ITEM 5</a>
     </nav>
 
+    <!-- Reloj independiente -->
+    <!-- Eliminado - ahora está en corner-elements -->
 
     <section>
         <div class="welcome-carousel-container">
@@ -72,7 +72,7 @@
                 <h1 class="welcome-word">WELCOME</h1>
             </div>
         </div>
-        <img class="foto" src="https://picsum.photos/id/737/800/600"/>
+        <img class="foto" src="tapas.jpg"/>
         <p>  
             Obviously, this is just a test text — but how do you know?
             There is certainly a writer of this text, someone who exists.
@@ -88,7 +88,7 @@
             <h1>...is always,</h1>    
         </div> 
         <div class="col">
-            <img class="foto" src="https://picsum.photos/id/100/800/600"/>
+            <img class="foto" src="1.gif"/>
             <p>  
                 Somewhere between the folds, something breathes.
                 Not a presence, but the memory of having been watched.
@@ -98,22 +98,22 @@
         </div>
         
         <div class="col">
+            <img class="foto" src="nft.gif"/>   
             <p>
                 And if the soul remains, so too does its intent — not always clear, not always benevolent.
                 What was the writer thinking? Or worse — what was it trying not to think?
                 Language is a veil, but veils are thin when backlit by desire, or fear, or guilt.
                 Read carefully. Something watches back when you stare too long into a sentence.      
             </p>      
-            <img class="foto" src="https://picsum.photos/id/102/800/600"/>   
         </div>  
     </section>
 
     <section class="last">
-        <img class="foto" src="https://picsum.photos/id/972/800/600"/>  
+        <img class="foto" src="ojo.jpg"/>  
         <h2>...distorted.</h2>
     </section>
 
-<main class="portfolio-container">
+    <main class="portfolio-container">
         <h1 class="sr-only">Music Portfolio</h1>
         <ul class="project-list" role="list">
             <li class="project-item" data-image="https://assets.codepen.io/7558/portrait-fashion-001.jpg">
