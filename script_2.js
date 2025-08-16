@@ -46,7 +46,7 @@
             const documentHeight = document.documentElement.scrollHeight;
             const scrollPercent = scrollTop / (documentHeight - windowHeight);
             
-            const cornerElements = document.querySelector('.corner-elements');
+            const cornerElements = document.querySelector('.corner-elements22');
             
             // Hide when scrolled more than 50%
             if (scrollPercent > 0.5) {
