@@ -143,7 +143,7 @@
 
         window.addEventListener('load', async function() {
             let i = 0;
-            for (const e of document.querySelectorAll('img,h1,h2,p')) {
+            for (const e of document.querySelectorAll('.foto,h1,h2,p')) {
                 await vfx.add(e, { 
                     shader: shader2,
                     uniforms: { id: i++ },
