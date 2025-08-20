@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Distorted Reality</title>
+    <link rel="stylesheet" href="styles.css">
+    <script 
+src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script 
+src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/TextPlugin.min.js"></script>
+    <script 
+src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrambleTextPlugin.min.js"></script>
+ 
+</head>
+<body>
+   <!-- Corner Elements - Ahora en la parte superior -->
+    <div class="corner-elements">
+        <div class="corner-item top-left">
+            52.5414338Â° N, 13.4995762Â° E
+        </div>
+        <div class="corner-item top-center"><span style="font-size:11px; 
+color: #909279; margin: 0;
+        padding: 0">BER</span>
+            <time class="current-time" id="current-time"></time>
+        </div>
+        <nav class="corner-item top-right">
+            <a 
+href="https://open.spotify.com/user/226ilulo57zutgtiwjsjqnqsy?si=0004e7bc669a406e">Spotify</a> 
+|
+            <a href="mailto:hi@filip.fyi">Email</a> |
+            <a href="https://x.com/filipz" target="_blank" 
+rel="noopener">X</a>
+        </nav>
+    </div>
+
+    <!-- Header principal con logo y menÃº -->
+    <header class="header">
+        <div class="logo">
+            <img alt="HUBER Logo" class="logo-image" 
+src="https://rene-huber.eu/portfolio/LOGO-HUBER.webp"/>
+        </div>
+        
+        <!-- Desktop Navigation -->
+        <nav class="nav-desktop">
+            <a href="index.html" data-page="home">Home</a>
+            <a href="about.html" data-page="about">About</a>
+            <a href="portfolio.html" data-page="portfolio">Portfolio</a>
+            <a href="contact.html" data-page="contact">Kontakt</a>
+        </nav>
+
+        <!-- Mobile Menu Toggle -->
+        <div class="menu-toggle" id="menuToggle">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+    </header>
+
+    <!-- Mobile Navigation -->
+    <nav class="nav-mobile" id="navMobile">
+        <a href="index.html" data-page="home">Home</a>
+        <a href="about.html" data-page="about">About</a>
+        <a href="portfolio.html" data-page="portfolio">Portfolio</a>
+        <a href="contact.html" data-page="contact">Kontakt</a>
+    </nav>
+
+    <!-- Reloj independiente -->
+    <!-- Eliminado - ahora estÃ¡ en corner-elements -->
+
+    <section>
+        <div class="welcome-carousel-container">
+            <div class="welcome-carousel" id="welcomeCarousel">
+                <h1 class="welcome-word">WELCOME</h1>
+                <h1 class="welcome-word">WELCOME</h1>
+                <h1 class="welcome-word">WELCOME</h1>
+                <h1 class="welcome-word">WELCOME</h1>
+                <h1 class="welcome-word">WELCOME</h1>
+            </div>
+        </div>
+        <img class="foto" src="tapas.jpg"/>
+       
+    </section>
+
+    
+
+<!-- OPCIÃ"N 5: Con elementos laterales informativos -->
+<section class="last txt-center">
+    <div class="grid-left">
+        <span style="writing-mode: vertical-rl; color: #666; font-size: 
+0.8rem;">GLITCH</span>
+    </div>
+    <h2>222distorted.</h2>
+    <div class="grid-right">
+        <span style="writing-mode: vertical-lr; color: #666; font-size: 
+0.8rem;">EFFECT</span>
+    </div>
+</section>
+
+
+    <main class="portfolio-container">
+        <h1 class="sr-only">Music Portfolio</h1>
+        <ul class="project-list" role="list">
+            <li class="project-item" 
+data-image="https://rene-huber.eu/images/undulcito_web.webp">
+                <span class="project-data artist hover-text">DEATH ON THE 
+BALCONY</span>
+                <span class="project-data album hover-text">VICE</span>
+                <span class="project-data category 
+hover-text">SINGLE</span>
+                <span class="project-data label hover-text">SELF 
+RELEASED</span>
+                <span class="project-data year hover-text">2023</span>
+            </li>
+            <li class="project-item" 
+data-image="https://assets.codepen.io/7558/portrait-fashion-002.jpg">
+                <span class="project-data artist hover-text">JIMMY 
+WHOO</span>
+                <span class="project-data album 
+hover-text">NIGHTFALL</span>
+                <span class="project-data category hover-text">EP</span>
+                <span class="project-data label hover-text">DEEP 
+HOUSE</span>
+                <span class="project-data year hover-text">2022</span>
+            </li>
+            <li class="project-item" 
+data-image="https://assets.codepen.io/7558/portrait-fashion-003.jpg">
+                <span class="project-data artist hover-text">HERMANOS 
+GUTIÃ‰RREZ</span>
+                <span class="project-data album hover-text">EL BUENO Y EL 
+MALO</span>
+                <span class="project-data category 
+hover-text">ALBUM</span>
+                <span class="project-data label hover-text">EASY EYE 
+SOUND</span>
+                <span class="project-data year hover-text">2022</span>
+            </li>
+            <li class="project-item" 
+data-image="https://assets.codepen.io/7558/portrait-fashion-004.jpg">
+                <span class="project-data artist hover-text">NEIL 
+FRANCES</span>
+                <span class="project-data album hover-text">LINES</span>
+                <span class="project-data category 
+hover-text">ALBUM</span>
+                <span class="project-data label hover-text">ISKA 
+DHAMD</span>
+                <span class="project-data year hover-text">2021</span>
+            </li>
+            <li class="project-item" 
+data-image="https://assets.codepen.io/7558/portrait-fashion-005.jpg">
+                <span class="project-data artist hover-text">ADDEX</span>
+                <span class="project-data album hover-text">MIDNIGHT 
+SESSIONS</span>
+                <span class="project-data category hover-text">EP</span>
+                <span class="project-data label 
+hover-text">ELECTRONIC</span>
+                <span class="project-data year hover-text">2023</span>
+            </li>
+            <li class="project-item" 
+data-image="https://assets.codepen.io/7558/portrait-fashion-006.jpg">
+                <span class="project-data artist 
+hover-text">BEYHUDE</span>
+                <span class="project-data album 
+hover-text">YALNIZLIK</span>
+                <span class="project-data category 
+hover-text">SINGLE</span>
+                <span class="project-data label hover-text">ALBÃœM 
+YAPIM</span>
+                <span class="project-data year hover-text">2023</span>
+            </li>
+            <li class="project-item" 
+data-image="https://assets.codepen.io/7558/portrait-fashion-007.jpg">
+                <span class="project-data artist hover-text">THING</span>
+                <span class="project-data album hover-text">SHAPES</span>
+                <span class="project-data category 
+hover-text">ALBUM</span>
+                <span class="project-data label hover-text">KOMPAKT</span>
+                <span class="project-data year hover-text">2021</span>
+            </li>
+            <li class="project-item" 
+data-image="https://assets.codepen.io/7558/portrait-fashion-008.jpg">
+                <span class="project-data artist hover-text">ABAKUS</span>
+                <span class="project-data album hover-text">THAT MUCH 
+CLOSER TO THE SUN</span>
+                <span class="project-data category 
+hover-text">ALBUM</span>
+                <span class="project-data label 
+hover-text">BEATSERVICE</span>
+                <span class="project-data year hover-text">2020</span>
+            </li>
+            <li class="project-item" 
+data-image="https://assets.codepen.io/7558/portrait-fashion-001.jpg">
+                <span class="project-data artist 
+hover-text">SAINTÃ‰</span>
+                <span class="project-data album hover-text">ANXIETY</span>
+                <span class="project-data category 
+hover-text">SINGLE</span>
+                <span class="project-data label 
+hover-text">PARLOPHONE</span>
+                <span class="project-data year hover-text">2023</span>
+            </li>
+            <li class="project-item" 
+data-image="https://assets.codepen.io/7558/portrait-fashion-002.jpg">
+                <span class="project-data artist 
+hover-text">CANNONS</span>
+                <span class="project-data album hover-text">FEVER 
+DREAM</span>
+                <span class="project-data category 
+hover-text">ALBUM</span>
+                <span class="project-data label 
+hover-text">COLUMBIA</span>
+                <span class="project-data year hover-text">2022</span>
+            </li>
+            <li class="project-item" 
+data-image="https://assets.codepen.io/7558/portrait-fashion-003.jpg">
+                <span class="project-data artist hover-text">BAWO</span>
+                <span class="project-data album hover-text">REAL 
+LIES</span>
+                <span class="project-data category hover-text">EP</span>
+                <span class="project-data label hover-text">NINJA 
+TUNE</span>
+                <span class="project-data year hover-text">2023</span>
+            </li>
+            <li class="project-item" 
+data-image="https://assets.codepen.io/7558/portrait-fashion-004.jpg">
+                <span class="project-data artist hover-text">SUMAC 
+DUB</span>
+                <span class="project-data album hover-text">ECHOES FROM 
+THE VOID</span>
+                <span class="project-data category 
+hover-text">ALBUM</span>
+                <span class="project-data label hover-text">DUB 
+RECORDS</span>
+                <span class="project-data year hover-text">2022</span>
+            </li>
+           
+        </ul>
+    </main>
+
+    <div class="background-image" id="backgroundImage" role="img" 
+aria-hidden="true"></div>
+
+          
+
+
+   <script type="module" src="script_1.js"></script> 
+    <script src="script_2.js"></script>
+</body>
+</html>

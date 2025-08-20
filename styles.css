@@ -65,16 +65,17 @@
             justify-self: start;color:#909279 ;
             font-size: 13px
         }
-
+a.leftCorner{color: #2d7501;}
         .top-center {
             justify-self: center;
         }
 
         .top-right a{
-          color:#909279!important ;  }
+          color:#9f932b!important ; 
+        font-size: 13px }
 
         .top-right {
-          color:#909279!important ;
+          color:#285719!important ;
             justify-self: end;
             display: flex;
             gap: 0.5rem;
@@ -84,7 +85,7 @@
             opacity: 0;
             pointer-events: none;
         }
-.current-time{ color:#909279 }
+.current-time{ color:#f00 }
         /* Header principal - Ahora debajo de corner-elements */
         .header {
             position: fixed;
@@ -123,19 +124,47 @@
             margin: 0;
             padding: 0;
         }
+.nav-desktop a {
+    color: var(--color-foreground);
+    text-decoration: none;
+    font-size: clamp(0.8rem, 1.5vw, 1rem);
+    transition: color 0.3s ease;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    position: relative; /* This is crucial for positioning the pseudo-element */
+    padding-bottom: 4px;
+}
+.nav-desktop a.active { color: rgb(255 255 255 / 37%)  !important}
 
-        .nav-desktop a {
-            color: var(--color-foreground);
-            text-decoration: none;
-            font-size: clamp(0.8rem, 1.5vw, 1rem);
-            transition: color 0.3s ease;
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
-        }
+.nav-desktop a::after {
+    content: '';
+    position: absolute;
+    bottom: 0; /* Adjust to sit right under the text */
+    left: 0;
+    width: 100%; /* Set width to 100% of the parent link */
+    height: 2px;
+    background: rgba(255, 255, 255, 0.3);
+    transform: scaleX(0); /* Start with a scale of 0 */
+    transform-origin: left; /* Make it expand from the left */
+    transition: transform 0.3s ease-in-out;
+}
 
-        .nav-desktop a:hover {
-            color: var(--color-accent);
-        }
+.nav-desktop a:hover::after,
+.nav-desktop a.active::after {
+    transform: scaleX(1); /* Expand the underline on hover or active state */
+}
+
+/* Remove the old animation keyframes since we're using transform now */
+@keyframes underlineGlow {
+    0% {
+        width: 0;
+        opacity: 0;
+    }
+    100% {
+        width: 100%;
+        opacity: 1;
+    }
+}
 
         .menu-toggle {
             display: none;
@@ -814,3 +843,5 @@
         opacity: 0.9;
     }
 }
+
+

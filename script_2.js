@@ -1,3 +1,40 @@
+
+        // NAVEGACIÓN ACTIVA CON UNDERLINE
+        function setActiveMenuItem() {
+            const currentPage = getCurrentPageName();
+            
+            // Remover clase active de todos los links
+            document.querySelectorAll('.nav-desktop a, .nav-mobile a').forEach(link => {
+                link.classList.remove('active');
+            });
+            
+            // Agregar clase active al link correspondiente
+            document.querySelectorAll(`[data-page="${currentPage}"]`).forEach(link => {
+                link.classList.add('active');
+            });
+        }
+
+        function getCurrentPageName() {
+            const path = window.location.pathname;
+            const page = path.split('/').pop() || 'index.html';
+            
+            // Mapear archivos a nombres de página
+            const pageMap = {
+                'index.html': 'home',
+                '': 'home', // Para cuando está en la raíz
+                'about.html': 'about',
+                'portfolio.html': 'portfolio', 
+                'contact.html': 'contact'
+            };
+            
+            return pageMap[page] || 'home';
+        }
+
+        // Ejecutar al cargar la página
+        document.addEventListener('DOMContentLoaded', setActiveMenuItem);
+
+
+
 // Configuration
         const CONFIG = {
           timeZone: "Europe/Berlin",
