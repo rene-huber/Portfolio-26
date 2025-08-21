@@ -76,7 +76,7 @@
         setInterval(updateTime, 1000);
 
         // Hide corner elements on scroll
-        let lastScrollTop = 0;
+       /* let lastScrollTop = 0;
         window.addEventListener('scroll', () => {
             const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
             const windowHeight = window.innerHeight;
@@ -94,7 +94,25 @@
             
             lastScrollTop = scrollTop;
         });
-
+*/
+// Hide footer elements on scroll
+let lastScrollTop = 0;
+window.addEventListener('scroll', () => {
+    const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+    const footerElements = document.querySelector('.footer-corner-elements');
+    
+    // Si el elemento existe, aplica la lógica
+    if (footerElements) {
+        if (scrollTop > lastScrollTop) {
+            // Scrolling down
+            footerElements.classList.add('hidden');
+        } else {
+            // Scrolling up
+            footerElements.classList.remove('hidden');
+        }
+        lastScrollTop = scrollTop <= 0 ? 0 : scrollTop;
+    }
+});
         // Portfolio interactions
         const projectItems = document.querySelectorAll('.project-item');
         const backgroundImage = document.getElementById('backgroundImage');

@@ -71,7 +71,7 @@ a.leftCorner{color: #2d7501;}
         }
 
         .top-right a{
-          color:#9f932b!important ; 
+          color:#14690b!important ; 
         font-size: 13px }
 
         .top-right {
@@ -844,4 +844,43 @@ a.leftCorner{color: #2d7501;}
     }
 }
 
+/* Footer fijo en las esquinas */
+.footer-corner-elements {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    padding: 1% 1%;
+    pointer-events: none; /* Esto evita que los elementos fijos bloqueen clics en el contenido detrás de ellos */
+    z-index: 1000;
+}
 
+.footer-item {
+    font-size: clamp(1.5rem, 3vw, 2rem);
+    color: var(--color-foreground);
+    text-shadow: 0 0 10px rgba(255, 255, 255, 0.2);
+    display: none; /* Ocultar por defecto para móviles */
+}
+
+.footer-item.left-corner-emoji {
+    align-self: flex-start;
+}
+
+.footer-item.right-corner-emoji {
+    align-self: flex-end;
+}
+/* Clase para ocultar los elementos de la esquina con transición */
+.footer-corner-elements.hidden {
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.4s ease;
+}
+/* Mostrar los elementos solo en vistas de escritorio */
+@media (min-width: 768px) {
+    .footer-item {
+        display: block;
+    }
+}
