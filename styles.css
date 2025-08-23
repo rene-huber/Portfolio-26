@@ -65,7 +65,7 @@
             justify-self: start;color:#909279 ;
             font-size: 13px
         }
-a.leftCorner{color: #2d7501;}
+a.leftCorner{color: #2d7501; font-size: 12px}
         .top-center {
             justify-self: center;
         }
@@ -85,7 +85,7 @@ a.leftCorner{color: #2d7501;}
             opacity: 0;
             pointer-events: none;
         }
-.current-time{ color:#f00 }
+.current-time{ color:#87878787 }
         /* Header principal - Ahora debajo de corner-elements */
         .header {
             position: fixed;
@@ -301,7 +301,7 @@ a.leftCorner{color: #2d7501;}
         }
 
         img { 
-            opacity: 0;
+            opacity: 1;
             margin: 2em 0;
             width: 77%;
             height: auto;
@@ -884,3 +884,5 @@ a.leftCorner{color: #2d7501;}
         display: block;
     }
 }
+
+

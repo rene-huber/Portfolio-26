@@ -184,3 +184,51 @@ window.addEventListener('scroll', () => {
                 );
             });
         }
+// Función para carrusel de imágenes con efecto glitch
+function startImageCarousel() {
+    console.log('🚀 Iniciando función startImageCarousel');
+    
+    const imageElement = document.querySelector('.foto');
+    console.log('📷 Elemento imagen encontrado:', imageElement);
+    
+    if (!imageElement) {
+        console.error('❌ No se encontró la imagen con clase .foto');
+        return;
+    }
+
+    // Array con tus 3 imágenes
+    const imageUrls = [
+        'tapas.jpg',
+        'ojo.jpg'
+    ];
+    
+    console.log('📂 URLs de imágenes:', imageUrls);
+
+    let currentIndex = 0;
+
+    function changeImage() {
+        console.log(`🔄 Cambiando imagen. Índice actual: ${currentIndex}`);
+        console.log(`📷 Nueva imagen: ${imageUrls[currentIndex]}`);
+        
+        // Cambiar solo el src de la imagen existente
+        imageElement.src = imageUrls[currentIndex];
+        imageElement.alt = `Imagen ${currentIndex + 1}`;
+        
+        // Incrementar índice para la siguiente imagen
+        currentIndex = (currentIndex + 1) % imageUrls.length;
+        
+        console.log(`➡️ Próximo índice será: ${currentIndex}`);
+    }
+
+    console.log('⏰ Configurando intervalo de 5 segundos');
+    // Cambiar imagen cada 5 segundos
+    setInterval(changeImage, 5000);
+    
+    console.log('✅ Carrusel configurado correctamente');
+}
+
+// Llamar a la función cuando el DOM esté cargado
+document.addEventListener('DOMContentLoaded', function() {
+    console.log('🎯 DOM cargado, llamando startImageCarousel');
+    startImageCarousel();
+});
