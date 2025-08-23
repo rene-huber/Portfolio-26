@@ -65,13 +65,13 @@
             justify-self: start;color:#909279 ;
             font-size: 13px
         }
-a.leftCorner{color: #2d7501;}
+a.leftCorner{color: #2d7501; font-size: 12px}
         .top-center {
             justify-self: center;
         }
 
         .top-right a{
-          color:#9f932b!important ; 
+          color:#14690b!important ; 
         font-size: 13px }
 
         .top-right {
@@ -85,7 +85,7 @@ a.leftCorner{color: #2d7501;}
             opacity: 0;
             pointer-events: none;
         }
-.current-time{ color:#f00 }
+.current-time{ color:#87878787 }
         /* Header principal - Ahora debajo de corner-elements */
         .header {
             position: fixed;
@@ -301,7 +301,7 @@ a.leftCorner{color: #2d7501;}
         }
 
         img { 
-            opacity: 0;
+            opacity: 1;
             margin: 2em 0;
             width: 77%;
             height: auto;
@@ -841,6 +841,47 @@ a.leftCorner{color: #2d7501;}
     50% {
         transform: scale(1.01);
         opacity: 0.9;
+    }
+}
+
+/* Footer fijo en las esquinas */
+.footer-corner-elements {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    padding: 1% 1%;
+    pointer-events: none; /* Esto evita que los elementos fijos bloqueen clics en el contenido detrás de ellos */
+    z-index: 1000;
+}
+
+.footer-item {
+    font-size: clamp(1.5rem, 3vw, 2rem);
+    color: var(--color-foreground);
+    text-shadow: 0 0 10px rgba(255, 255, 255, 0.2);
+    display: none; /* Ocultar por defecto para móviles */
+}
+
+.footer-item.left-corner-emoji {
+    align-self: flex-start;
+}
+
+.footer-item.right-corner-emoji {
+    align-self: flex-end;
+}
+/* Clase para ocultar los elementos de la esquina con transición */
+.footer-corner-elements.hidden {
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.4s ease;
+}
+/* Mostrar los elementos solo en vistas de escritorio */
+@media (min-width: 768px) {
+    .footer-item {
+        display: block;
     }
 }
 
